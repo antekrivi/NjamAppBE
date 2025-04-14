@@ -9,10 +9,10 @@ import java.util.*;
 @Repository
 public class MockRestoranRepository implements RestoranRepository{
     private static List<Restoran> restorani = new ArrayList<>(Arrays.asList(
-            new Restoran(1L, "Restoran1", "Adresa1", "123456", "rest1@gmail.com",
+            new Restoran(1L, "Stari Kotac", "Savska 11", "099-555-555", "rest1@gmail.com",
                     createRadnoVrijeme(), true, 30, 4.5, 10,
                     1, "Restoran s najboljom hranom u gradu"),
-            new Restoran(2L, "Restoran2", "Adresa2", "654321", "rest2@gmail.com",
+            new Restoran(4L, "Kod Dede", "Selska 22", "095-222-222", "rest2@gmail.com",
                     createRadnoVrijeme(), true, 25, 4.0, 15,
                     0, "Restoran s najgorom hranom u gradu")
     ));
@@ -59,11 +59,11 @@ public class MockRestoranRepository implements RestoranRepository{
                 restoranToUpdate.setBrojTelefona(restoran.getBrojTelefona());
                 restoranToUpdate.setEmail(restoran.getEmail());
                 restoranToUpdate.setRadnoVrijeme(restoran.getRadnoVrijeme());
-                restoranToUpdate.setTrenutnoOtvoren(restoran.getTrenutnoOtvoren());
+                restoranToUpdate.setTrenutnoOtvoreno(restoran.getTrenutnoOtvoreno());
                 restoranToUpdate.setProsVrijemeDostave(restoran.getProsVrijemeDostave());
                 restoranToUpdate.setProsOcjenaKupca(restoran.getProsOcjenaKupca());
                 restoranToUpdate.setMaxBrojNarudzbi(restoran.getMaxBrojNarudzbi());
-                restoranToUpdate.setMichelinZvjezdice(restoran.getMichelinZvjezdice());
+                restoranToUpdate.setMichelinZvijezdice(restoran.getMichelinZvijezdice());
                 restoranToUpdate.setKratkiOpis(restoran.getKratkiOpis());
 
                 return Optional.of(restoranToUpdate);

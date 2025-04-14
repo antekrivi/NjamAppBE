@@ -9,27 +9,27 @@ public class Restoran {
     private String brojTelefona;
     private String email;
     private Map<String, String> radnoVrijeme;
-    private Boolean trenutnoOtvoren;
+    private Boolean trenutnoOtvoreno;
     private Integer prosVrijemeDostave;
     private Double prosOcjenaKupca;
     private Integer maxBrojNarudzbi;
-    private Integer michelinZvjezdice;
+    private Integer michelinZvijezdice;
     private String kratkiOpis;
 
     public Restoran(Long ID, String imeRestorana, String adresa, String brojTelefona, String email,
-                    Map<String, String> radnoVrijeme, Boolean trenutnoOtvoren, Integer prosVrijemeDostave,
-                    Double prosOcjenaKupca, Integer maxBrojNarudzbi, Integer michelinZvjezdice, String kratkiOpis) {
+                    Map<String, String> radnoVrijeme, Boolean trenutnoOtvoreno, Integer prosVrijemeDostave,
+                    Double prosOcjenaKupca, Integer maxBrojNarudzbi, Integer michelinZvijezdice, String kratkiOpis) {
         this.ID = ID;
         this.imeRestorana = imeRestorana;
         this.adresa = adresa;
         this.brojTelefona = brojTelefona;
         this.email = email;
         this.radnoVrijeme = radnoVrijeme;
-        this.trenutnoOtvoren = trenutnoOtvoren;
+        this.trenutnoOtvoreno = trenutnoOtvoreno;
         this.prosVrijemeDostave = prosVrijemeDostave;
         this.prosOcjenaKupca = prosOcjenaKupca;
         this.maxBrojNarudzbi = maxBrojNarudzbi;
-        this.michelinZvjezdice = michelinZvjezdice;
+        this.michelinZvijezdice = michelinZvijezdice;
         this.kratkiOpis = kratkiOpis;
     }
 
@@ -81,12 +81,12 @@ public class Restoran {
         this.radnoVrijeme = radnoVrijeme;
     }
 
-    public Boolean getTrenutnoOtvoren() {
-        return trenutnoOtvoren;
+    public Boolean getTrenutnoOtvoreno() {
+        return trenutnoOtvoreno;
     }
 
-    public void setTrenutnoOtvoren(Boolean trenutnoOtvoren) {
-        this.trenutnoOtvoren = trenutnoOtvoren;
+    public void setTrenutnoOtvoreno(Boolean trenutnoOtvoreno) {
+        this.trenutnoOtvoreno = trenutnoOtvoreno;
     }
 
     public Integer getProsVrijemeDostave() {
@@ -113,12 +113,12 @@ public class Restoran {
         this.maxBrojNarudzbi = maxBrojNarudzbi;
     }
 
-    public Integer getMichelinZvjezdice() {
-        return michelinZvjezdice;
+    public Integer getMichelinZvijezdice() {
+        return michelinZvijezdice;
     }
 
-    public void setMichelinZvjezdice(Integer michelinZvjezdice) {
-        this.michelinZvjezdice = michelinZvjezdice;
+    public void setMichelinZvijezdice(Integer michelinZvijezdice) {
+        this.michelinZvijezdice = michelinZvijezdice;
     }
 
     public String getKratkiOpis() {

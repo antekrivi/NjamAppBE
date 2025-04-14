@@ -1,6 +1,7 @@
 package hr.tvz.krivacic.njamapp.controller;
 
 import hr.tvz.krivacic.njamapp.dto.RestoranDTO;
+import hr.tvz.krivacic.njamapp.model.Restoran;
 import hr.tvz.krivacic.njamapp.model.RestoranCommand;
 import hr.tvz.krivacic.njamapp.service.RestoranServiceImpl;
 import jakarta.validation.Valid;
@@ -16,6 +17,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("restoran")
+@CrossOrigin(origins = "http://localhost:4200")
 public class RestoranController {
     private static final Logger logger = LoggerFactory.getLogger(RestoranController.class);
     private final RestoranServiceImpl restoranServiceImpl;
@@ -33,6 +35,10 @@ public class RestoranController {
     public RestoranDTO getRestoranById(@RequestParam final Long id){
         return restoranServiceImpl.findRestoranByID(id);
     }
+
+    @GetMapping("/full")
+    public Restoran getFullRestoran(@RequestParam final Long id) {return restoranServiceImpl.findFullRestoranByID(id);}
+
     @GetMapping(params = "ime")
     public RestoranDTO getRestoranByIme(@RequestParam final String ime){
         return restoranServiceImpl.findRestoranByIme(ime);
@@ -62,6 +68,15 @@ public class RestoranController {
     public void izbrisi(@PathVariable Long ID){
         restoranServiceImpl.izbrisiRestoran(ID);
     }
-
+    @PutMapping("/{ID}")
+    public ResponseEntity<RestoranDTO> updateRestoran(@PathVariable Long ID,
+                                                        @Valid @RequestBody RestoranCommand restoranCommand){
+            Optional<RestoranDTO> restoranDTO = restoranServiceImpl.spremiRestoran(restoranCommand);
+            if (restoranDTO.isPresent()) {
+                return ResponseEntity.ok(restoranDTO.get());
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
+        }
 }
 

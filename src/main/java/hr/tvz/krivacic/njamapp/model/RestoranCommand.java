@@ -2,16 +2,11 @@ package hr.tvz.krivacic.njamapp.model;
 
 
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 
 import java.util.Map;
 
 public class RestoranCommand {
-    @NotNull(message = "ID ne smije biti prazan")
     private Long ID;
     @NotBlank(message = "Ime restorana ne smije biti prazno")
     private String imeRestorana;
@@ -26,7 +21,7 @@ public class RestoranCommand {
     @NotNull(message = "Radno vrijeme ne smije biti prazno")
     private Map<String, String> radnoVrijeme;
     @NotNull(message = "Trenutno otvoren ne smije biti prazno")
-    private Boolean trenutnoOtvoren;
+    private Boolean trenutnoOtvoreno;
     @NotNull(message = "Postotak opterećenosti ne smije biti prazno")
     private Integer prosVrijemeDostave;
     @PositiveOrZero(message = "Ocjena ne smije biti negativna")
@@ -38,14 +33,14 @@ public class RestoranCommand {
     @NotBlank(message = "Kratki opis ne smije biti prazan")
     private String kratkiOpis;
 
-    public RestoranCommand(Long ID, String imeRestorana, String adresa, String brojTelefona, String email, Map<String, String> radnoVrijeme, Boolean trenutnoOtvoren, Integer prosVrijemeDostave, Double prosOcjenaKupca, Integer maxBrojNarudzbi, Integer michelinZvjezdice, String kratkiOpis) {
+    public RestoranCommand(Long ID, String imeRestorana, String adresa, String brojTelefona, String email, Map<String, String> radnoVrijeme, Boolean trenutnoOtvoreno, Integer prosVrijemeDostave, Double prosOcjenaKupca, Integer maxBrojNarudzbi, Integer michelinZvjezdice, String kratkiOpis) {
         this.ID = ID;
         this.imeRestorana = imeRestorana;
         this.adresa = adresa;
         this.brojTelefona = brojTelefona;
         this.email = email;
         this.radnoVrijeme = radnoVrijeme;
-        this.trenutnoOtvoren = trenutnoOtvoren;
+        this.trenutnoOtvoreno = trenutnoOtvoreno;
         this.prosVrijemeDostave = prosVrijemeDostave;
         this.prosOcjenaKupca = prosOcjenaKupca;
         this.maxBrojNarudzbi = maxBrojNarudzbi;
@@ -101,12 +96,12 @@ public class RestoranCommand {
         this.radnoVrijeme = radnoVrijeme;
     }
 
-    public Boolean getTrenutnoOtvoren() {
-        return trenutnoOtvoren;
+    public Boolean getTrenutnoOtvoreno() {
+        return trenutnoOtvoreno;
     }
 
-    public void setTrenutnoOtvoren(Boolean trenutnoOtvoren) {
-        this.trenutnoOtvoren = trenutnoOtvoren;
+    public void setTrenutnoOtvoreno(Boolean trenutnoOtvoreno) {
+        this.trenutnoOtvoreno = trenutnoOtvoreno;
     }
 
     public Integer getProsVrijemeDostave() {

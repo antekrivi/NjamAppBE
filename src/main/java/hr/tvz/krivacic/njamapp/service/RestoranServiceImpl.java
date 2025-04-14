@@ -4,12 +4,8 @@ import hr.tvz.krivacic.njamapp.model.Restoran;
 import hr.tvz.krivacic.njamapp.dto.RestoranDTO;
 import hr.tvz.krivacic.njamapp.model.RestoranCommand;
 import hr.tvz.krivacic.njamapp.repository.MockRestoranRepository;
-import hr.tvz.krivacic.njamapp.repository.RestoranRepository;
-import hr.tvz.krivacic.njamapp.service.RestoranService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -36,6 +32,10 @@ public class RestoranServiceImpl implements RestoranService {
         return restoranRepository.findRestoranByID(id)
                 .map(this::mapRestoranToRestoranDTO)
                 .orElse(null);
+    }
+    @Override
+    public Restoran findFullRestoranByID(Long id) {
+        return restoranRepository.findRestoranByID(id).get();
     }
     @Override
     public RestoranDTO findRestoranByIme(String ime) {
@@ -65,7 +65,7 @@ public class RestoranServiceImpl implements RestoranService {
                 restoranCommand.getBrojTelefona(),
                 restoranCommand.getEmail(),
                 restoranCommand.getRadnoVrijeme(),
-                restoranCommand.getTrenutnoOtvoren(),
+                restoranCommand.getTrenutnoOtvoreno(),
                 restoranCommand.getProsVrijemeDostave(),
                 restoranCommand.getProsOcjenaKupca(),
                 restoranCommand.getMaxBrojNarudzbi(),
