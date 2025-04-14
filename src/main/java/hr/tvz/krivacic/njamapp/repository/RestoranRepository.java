@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface RestoranRepository {
     List<Restoran> findAll();
+    List<Restoran> findMichelinoveRestorane();
     Optional<Restoran> findRestoranByID(Long id);
     Optional<Restoran> findRestoranByIme(String ime);
     Optional<Restoran> spremiRestoran(Restoran restoran);

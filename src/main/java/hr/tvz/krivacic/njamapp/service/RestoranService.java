@@ -9,6 +9,7 @@ import java.util.Optional;
 
 public interface RestoranService {
     List<RestoranDTO> findAll();
+    List<RestoranDTO> findMichelinoveRestorane();
     RestoranDTO findRestoranByID(Long id);
     Restoran findFullRestoranByID(Long id);
     RestoranDTO findRestoranByIme(String ime);

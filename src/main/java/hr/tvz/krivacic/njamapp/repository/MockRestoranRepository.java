@@ -14,7 +14,16 @@ public class MockRestoranRepository implements RestoranRepository{
                     1, "Restoran s najboljom hranom u gradu"),
             new Restoran(4L, "Kod Dede", "Selska 22", "095-222-222", "rest2@gmail.com",
                     createRadnoVrijeme(), true, 25, 4.0, 15,
-                    0, "Restoran s najgorom hranom u gradu")
+                    0, "Restoran s najgorom hranom u gradu"),
+            new Restoran(7L, "Pizza Planet", "Vukovarska 33", "091-333-111", "pizza@planet.com",
+                    createRadnoVrijeme(), true, 40, 4.7, 8,
+                    1, "Najbolja pizza u svemiru"),
+            new Restoran(8L, "Green Garden", "Zelena 9", "092-444-888", "garden@eco.com",
+                    createRadnoVrijeme(), true, 20, 4.2, 12,
+                    1, "Zdravi obroci i veganske opcije"),
+            new Restoran(9L, "Burger Bomba", "Heinzlova 7", "098-666-999", "burger@bomba.com",
+                    createRadnoVrijeme(), true, 35, 4.6, 9,
+                    0, "Sočni burgeri s domaćim pecivima")
     ));
 
     public MockRestoranRepository(){
@@ -22,6 +31,10 @@ public class MockRestoranRepository implements RestoranRepository{
     }
     @Override
     public List<Restoran> findAll() {
+        return new ArrayList<>(restorani);
+    }
+    @Override
+    public List<Restoran> findMichelinoveRestorane() {
         return new ArrayList<>(restorani);
     }
 

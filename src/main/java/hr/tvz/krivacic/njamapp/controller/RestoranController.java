@@ -3,6 +3,7 @@ package hr.tvz.krivacic.njamapp.controller;
 import hr.tvz.krivacic.njamapp.dto.RestoranDTO;
 import hr.tvz.krivacic.njamapp.model.Restoran;
 import hr.tvz.krivacic.njamapp.model.RestoranCommand;
+import hr.tvz.krivacic.njamapp.service.RestoranService;
 import hr.tvz.krivacic.njamapp.service.RestoranServiceImpl;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -29,6 +30,10 @@ public class RestoranController {
     @GetMapping()
     public List<RestoranDTO> getAllRestorani(){
         return restoranServiceImpl.findAll();
+    }
+    @GetMapping("/michelin")
+    public List<RestoranDTO> findMichelinoveRestorani(){
+        return restoranServiceImpl.findMichelinoveRestorane();
     }
 
     @GetMapping(params = "id")

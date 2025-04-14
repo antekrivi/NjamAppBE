@@ -24,6 +24,14 @@ public class RestoranServiceImpl implements RestoranService {
                 .map(this::mapRestoranToRestoranDTO)
                 .collect(Collectors.toList());
     }
+    @Override
+    public List<RestoranDTO> findMichelinoveRestorane() {
+        return restoranRepository.findMichelinoveRestorane()
+                .stream()
+                .filter(restoran -> restoran.getMichelinZvijezdice() > 0)
+                .map(this::mapRestoranToRestoranDTO)
+                .collect(Collectors.toList());
+    }
     private RestoranDTO mapRestoranToRestoranDTO(Restoran restoran) {
         return new RestoranDTO(restoran);
     }
