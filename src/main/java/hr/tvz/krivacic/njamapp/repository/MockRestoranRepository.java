@@ -10,28 +10,73 @@ import java.util.*;
 public class MockRestoranRepository implements RestoranRepository{
     private static List<Restoran> restorani = new ArrayList<>(Arrays.asList(
             new Restoran(1L, "Stari Kotac", "Savska 11", "099-555-555", "rest1@gmail.com",
-                    createRadnoVrijeme(), true, 30, 4.5, 10,
-                    1, "Restoran s najboljom hranom u gradu"),
+                    Map.of(
+                            "Monday", "08:00-22:00",
+                            "Tuesday", "08:00-22:00",
+                            "Wednesday", "08:00-22:00",
+                            "Thursday", "08:00-22:00",
+                            "Friday", "08:00-22:00",
+                            "Saturday", "10:00-23:00",
+                            "Sunday", "Closed"
+                    ),
+                    true, 30, 4.5, 10, 1, "Restoran s najboljom hranom u gradu"),
+
             new Restoran(4L, "Kod Dede", "Selska 22", "095-222-222", "rest2@gmail.com",
-                    createRadnoVrijeme(), true, 25, 4.0, 15,
-                    0, "Restoran s najgorom hranom u gradu"),
+                    Map.of(
+                            "Monday", "08:00-22:00",
+                            "Tuesday", "08:00-22:00",
+                            "Wednesday", "08:00-22:00",
+                            "Thursday", "08:00-22:00",
+                            "Friday", "08:00-22:00",
+                            "Saturday", "10:00-23:00",
+                            "Sunday", "Closed"
+                    ),
+                    true, 25, 4.0, 15, 0, "Restoran s najgorom hranom u gradu"),
+
             new Restoran(7L, "Pizza Planet", "Vukovarska 33", "091-333-111", "pizza@planet.com",
-                    createRadnoVrijeme(), true, 40, 4.7, 8,
-                    1, "Najbolja pizza u svemiru"),
+                    Map.of(
+                            "Monday", "08:00-22:00",
+                            "Tuesday", "08:00-22:00",
+                            "Wednesday", "08:00-22:00",
+                            "Thursday", "08:00-22:00",
+                            "Friday", "08:00-22:00",
+                            "Saturday", "10:00-23:00",
+                            "Sunday", "Closed"
+                    ),
+                    true, 40, 4.7, 8, 1, "Najbolja pizza u svemiru"),
+
             new Restoran(8L, "Green Garden", "Zelena 9", "092-444-888", "garden@eco.com",
-                    createRadnoVrijeme(), true, 20, 4.2, 12,
-                    1, "Zdravi obroci i veganske opcije"),
+                    Map.of(
+                            "Monday", "08:00-22:00",
+                            "Tuesday", "08:00-22:00",
+                            "Wednesday", "08:00-22:00",
+                            "Thursday", "08:00-22:00",
+                            "Friday", "08:00-22:00",
+                            "Saturday", "10:00-23:00",
+                            "Sunday", "Closed"
+                    ),
+                    true, 20, 4.2, 12, 1, "Zdravi obroci i veganske opcije"),
+
             new Restoran(9L, "Burger Bomba", "Heinzlova 7", "098-666-999", "burger@bomba.com",
-                    createRadnoVrijeme(), true, 35, 4.6, 9,
-                    0, "Sočni burgeri s domaćim pecivima")
+                    Map.of(
+                            "Monday", "10:00-23:00",
+                            "Tuesday", "10:00-23:00",
+                            "Wednesday", "10:00-23:00",
+                            "Thursday", "10:00-23:00",
+                            "Friday", "10:00-23:00",
+                            "Saturday", "10:00-23:00",
+                            "Sunday", "10:00-23:00"
+                    ),
+                    true, 35, 4.6, 9, 0, "Sočni burgeri s domaćim pecivima")
     ));
+
 
     public MockRestoranRepository(){
 
     }
     @Override
-    public List<Restoran> findAll() {
-        return new ArrayList<>(restorani);
+    public Set<Restoran> findAll() {
+        return new HashSet<>(restorani);
     }
     @Override
     public List<Restoran> findMichelinoveRestorane() {

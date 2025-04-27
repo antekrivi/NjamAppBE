@@ -4,9 +4,10 @@ import hr.tvz.krivacic.njamapp.model.Restoran;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface RestoranRepository {
-    List<Restoran> findAll();
+    Set<Restoran> findAll();
     List<Restoran> findMichelinoveRestorane();
     Optional<Restoran> findRestoranByID(Long id);
     Optional<Restoran> findRestoranByIme(String ime);

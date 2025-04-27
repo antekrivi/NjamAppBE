@@ -3,6 +3,7 @@ package hr.tvz.krivacic.njamapp.service;
 import hr.tvz.krivacic.njamapp.model.Restoran;
 import hr.tvz.krivacic.njamapp.dto.RestoranDTO;
 import hr.tvz.krivacic.njamapp.model.RestoranCommand;
+import hr.tvz.krivacic.njamapp.repository.JdbcRestoranRepository;
 import hr.tvz.krivacic.njamapp.repository.MockRestoranRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +13,10 @@ import java.util.stream.Collectors;
 
 @Service
 public class RestoranServiceImpl implements RestoranService {
-    private final MockRestoranRepository restoranRepository;
+    private final JdbcRestoranRepository restoranRepository;
 
-    public RestoranServiceImpl(MockRestoranRepository restoranRepository) {
-        this.restoranRepository = restoranRepository;
+    public RestoranServiceImpl(JdbcRestoranRepository jdbcRestoranRepository) {
+        this.restoranRepository = jdbcRestoranRepository;
     }
     @Override
     public List<RestoranDTO> findAll() {
