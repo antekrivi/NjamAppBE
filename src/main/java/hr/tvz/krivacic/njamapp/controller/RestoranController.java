@@ -73,15 +73,23 @@ public class RestoranController {
     public void izbrisi(@PathVariable Long ID){
         restoranServiceImpl.izbrisiRestoran(ID);
     }
+
     @PutMapping("/{ID}")
     public ResponseEntity<RestoranDTO> updateRestoran(@PathVariable Long ID,
-                                                        @Valid @RequestBody RestoranCommand restoranCommand){
-            Optional<RestoranDTO> restoranDTO = restoranServiceImpl.spremiRestoran(restoranCommand);
-            if (restoranDTO.isPresent()) {
-                return ResponseEntity.ok(restoranDTO.get());
-            } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-            }
-        }
+                                                         @RequestBody RestoranCommand restoranCommand){
+        restoranCommand.setID(ID);
+        Optional<RestoranDTO> restoranDTO = restoranServiceImpl.azurirajRestoran(ID, restoranCommand);
+
+        return restoranDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
+    @GetMapping("trenutno-otvoreni")
+    public List<RestoranDTO> getTrenutnoOtvoreniRestorani() {
+        return restoranServiceImpl.findTrenutnoOtvoreniRestorani();
+    }
+    @GetMapping("/najbolji")
+    public List<RestoranDTO> getNajbolji(@RequestParam final Double ocjena) {
+        return restoranServiceImpl.findNajbolji(ocjena);
+    }
 }
 

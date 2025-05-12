@@ -32,8 +32,14 @@ public class RestoranCommand {
     private Integer michelinZvjezdice;
     @NotBlank(message = "Kratki opis ne smije biti prazan")
     private String kratkiOpis;
+    @NotNull(message = "Broj stolova ne smije biti prazno")
+    private Integer brojStolova;
+    @NotNull(message = "Godina osnivanja ne smije biti prazno")
+    private Integer godinaOsnivanja;
 
-    public RestoranCommand(Long ID, String imeRestorana, String adresa, String brojTelefona, String email, Map<String, String> radnoVrijeme, Boolean trenutnoOtvoreno, Integer prosVrijemeDostave, Double prosOcjenaKupca, Integer maxBrojNarudzbi, Integer michelinZvjezdice, String kratkiOpis) {
+    public RestoranCommand(Long ID, String imeRestorana, String adresa, String brojTelefona, String email, Map<String,
+            String> radnoVrijeme, Boolean trenutnoOtvoreno, Integer prosVrijemeDostave, Double prosOcjenaKupca,
+            Integer maxBrojNarudzbi, Integer michelinZvjezdice, String kratkiOpis, Integer brojStolova, Integer godinaOsnivanja) {
         this.ID = ID;
         this.imeRestorana = imeRestorana;
         this.adresa = adresa;
@@ -46,6 +52,8 @@ public class RestoranCommand {
         this.maxBrojNarudzbi = maxBrojNarudzbi;
         this.michelinZvjezdice = michelinZvjezdice;
         this.kratkiOpis = kratkiOpis;
+        this.brojStolova = brojStolova;
+        this.godinaOsnivanja = godinaOsnivanja;
     }
 
     public Long getID() {
@@ -142,5 +150,21 @@ public class RestoranCommand {
 
     public void setKratkiOpis(String kratkiOpis) {
         this.kratkiOpis = kratkiOpis;
+    }
+
+    public Integer getBrojStolova() {
+        return brojStolova;
+    }
+
+    public void setBrojStolova(Integer brojStolova) {
+        this.brojStolova = brojStolova;
+    }
+
+    public Integer getGodinaOsnivanja() {
+        return godinaOsnivanja;
+    }
+
+    public void setGodinaOsnivanja(Integer godinaOsnivanja) {
+        this.godinaOsnivanja = godinaOsnivanja;
     }
 }

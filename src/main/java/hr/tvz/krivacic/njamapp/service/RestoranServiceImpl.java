@@ -63,7 +63,11 @@ public class RestoranServiceImpl implements RestoranService {
 
     @Override
     public List<RestoranDTO> findNajbolji(Double ocjena) {
-        return null;
+        return restoranRepository.findAll()
+                .stream()
+                .filter(restoran -> restoran.getProsOcjenaKupca() > 4.5)
+                .map(this::mapRestoranToRestoranDTO)
+                .collect(Collectors.toList());
     }
     @Override
     public Optional<RestoranDTO> spremiRestoran(RestoranCommand restoranCommand){
@@ -79,7 +83,9 @@ public class RestoranServiceImpl implements RestoranService {
                 restoranCommand.getProsOcjenaKupca(),
                 restoranCommand.getMaxBrojNarudzbi(),
                 restoranCommand.getMichelinZvjezdice(),
-                restoranCommand.getKratkiOpis()
+                restoranCommand.getKratkiOpis(),
+                restoranCommand.getBrojStolova(),
+                restoranCommand.getGodinaOsnivanja()
         );
         return restoranRepository.spremiRestoran(noviRestoran)
                 .map(this::mapRestoranToRestoranDTO);
@@ -87,5 +93,36 @@ public class RestoranServiceImpl implements RestoranService {
     @Override
     public void izbrisiRestoran(Long ID){
         restoranRepository.izbrisiRestoran(ID);
+    }
+
+    @Override
+    public List<RestoranDTO> findTrenutnoOtvoreniRestorani() {
+        return restoranRepository.findAll()
+                .stream()
+                .filter(Restoran::getTrenutnoOtvoreno)
+                .map(this::mapRestoranToRestoranDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<RestoranDTO> azurirajRestoran(Long id, RestoranCommand restoranCommand) {
+        Restoran restoran = new Restoran(
+                id,
+                restoranCommand.getImeRestorana(),
+                restoranCommand.getAdresa(),
+                restoranCommand.getBrojTelefona(),
+                restoranCommand.getEmail(),
+                restoranCommand.getRadnoVrijeme(),
+                restoranCommand.getTrenutnoOtvoreno(),
+                restoranCommand.getProsVrijemeDostave(),
+                restoranCommand.getProsOcjenaKupca(),
+                restoranCommand.getMaxBrojNarudzbi(),
+                restoranCommand.getMichelinZvjezdice(),
+                restoranCommand.getKratkiOpis(),
+                restoranCommand.getBrojStolova(),
+                restoranCommand.getGodinaOsnivanja()
+        );
+        return restoranRepository.azurirajRestoran(id, restoran)
+                .map(this::mapRestoranToRestoranDTO);
     }
 }

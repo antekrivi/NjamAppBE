@@ -11,7 +11,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
-import javax.swing.text.html.Option;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
@@ -68,7 +67,7 @@ public class JdbcRestoranRepository implements RestoranRepository{
     @Override
     public Optional<Restoran> spremiRestoran(Restoran restoran) {
         try {
-            restoran.setID(spremiRestoranDetalje(restoran));
+            restoran.setId(spremiRestoranDetalje(restoran));
             return Optional.of(restoran);
         }catch (JsonProcessingException e1){
             e1.printStackTrace();
@@ -82,6 +81,38 @@ public class JdbcRestoranRepository implements RestoranRepository{
     public void izbrisiRestoran(Long id) {
         jdbc.update("DELETE FROM restoran WHERE id = ?", id);
     }
+
+    @Override
+    public Optional<Restoran> azurirajRestoran(Long id, Restoran restoran) {
+        int rowsAffected = jdbc.update(
+                "UPDATE restoran SET imeRestorana = ?, adresa = ?, brojTelefona = ?, email = ?, radnoVrijeme = ?, " +
+                        "trenutnoOtvoreno = ?, prosVrijemeDostave = ?, prosOcjenaKupca = ?, maxBrojNarudzbi = ?, " +
+                        "michelinZvjezdice = ?, kratkiOpis = ?, brojStolova = ?, godinaOsnivanja = ? WHERE ID = ?",
+                restoran.getImeRestorana(),
+                restoran.getAdresa(),
+                restoran.getBrojTelefona(),
+                restoran.getEmail(),
+                restoran.getRadnoVrijeme(),
+                restoran.getTrenutnoOtvoreno(),
+                restoran.getProsVrijemeDostave(),
+                restoran.getProsOcjenaKupca(),
+                restoran.getMaxBrojNarudzbi(),
+                restoran.getMichelinZvijezdice(),
+                restoran.getKratkiOpis(),
+                restoran.getBrojStolova(),
+                restoran.getGodinaOsnivanja(),
+                id
+        );
+
+        if (rowsAffected > 0) {
+            return Optional.of(restoran);
+        } else {
+            return Optional.empty();
+        }
+    }
+
+
+
     private Restoran mapRowToRestoran(ResultSet rs, int rowNum) throws SQLException {
         String radnoVrijemeJson = rs.getString("radno_vrijeme");
         Map<String, String> radnoVrijemeMap = new HashMap<>();
@@ -105,7 +136,9 @@ public class JdbcRestoranRepository implements RestoranRepository{
                 rs.getDouble("pros_ocjena_kupca"),
                 rs.getInt("max_broj_narudzbi"),
                 rs.getInt("michelin_zvijezdice"),
-                rs.getString("kratki_opis")
+                rs.getString("kratki_opis"),
+                rs.getInt("broj_stolova"),
+                rs.getInt("godina_osnivanja")
         );
     }
 
@@ -125,6 +158,8 @@ public class JdbcRestoranRepository implements RestoranRepository{
         values.put("max_broj_narudzbi", restoran.getMaxBrojNarudzbi());
         values.put("michelin_zvijezdice", restoran.getMichelinZvijezdice());
         values.put("kratki_opis", restoran.getKratkiOpis());
+        values.put("broj_stolova", restoran.getBrojStolova());
+        values.put("godina_osnivanja", restoran.getGodinaOsnivanja());
 
         return inserter.executeAndReturnKey(values).longValue();
     }

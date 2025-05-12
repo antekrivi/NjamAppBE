@@ -13,4 +13,5 @@ public interface RestoranRepository {
     Optional<Restoran> findRestoranByIme(String ime);
     Optional<Restoran> spremiRestoran(Restoran restoran);
     void izbrisiRestoran(Long id);
+    Optional<Restoran> azurirajRestoran(Long id, Restoran restoran);
 }

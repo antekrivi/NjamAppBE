@@ -8,67 +8,7 @@ import java.util.*;
 @Profile("dev")
 @Repository
 public class MockRestoranRepository implements RestoranRepository{
-    private static List<Restoran> restorani = new ArrayList<>(Arrays.asList(
-            new Restoran(1L, "Stari Kotac", "Savska 11", "099-555-555", "rest1@gmail.com",
-                    Map.of(
-                            "Monday", "08:00-22:00",
-                            "Tuesday", "08:00-22:00",
-                            "Wednesday", "08:00-22:00",
-                            "Thursday", "08:00-22:00",
-                            "Friday", "08:00-22:00",
-                            "Saturday", "10:00-23:00",
-                            "Sunday", "Closed"
-                    ),
-                    true, 30, 4.5, 10, 1, "Restoran s najboljom hranom u gradu"),
-
-            new Restoran(4L, "Kod Dede", "Selska 22", "095-222-222", "rest2@gmail.com",
-                    Map.of(
-                            "Monday", "08:00-22:00",
-                            "Tuesday", "08:00-22:00",
-                            "Wednesday", "08:00-22:00",
-                            "Thursday", "08:00-22:00",
-                            "Friday", "08:00-22:00",
-                            "Saturday", "10:00-23:00",
-                            "Sunday", "Closed"
-                    ),
-                    true, 25, 4.0, 15, 0, "Restoran s najgorom hranom u gradu"),
-
-            new Restoran(7L, "Pizza Planet", "Vukovarska 33", "091-333-111", "pizza@planet.com",
-                    Map.of(
-                            "Monday", "08:00-22:00",
-                            "Tuesday", "08:00-22:00",
-                            "Wednesday", "08:00-22:00",
-                            "Thursday", "08:00-22:00",
-                            "Friday", "08:00-22:00",
-                            "Saturday", "10:00-23:00",
-                            "Sunday", "Closed"
-                    ),
-                    true, 40, 4.7, 8, 1, "Najbolja pizza u svemiru"),
-
-            new Restoran(8L, "Green Garden", "Zelena 9", "092-444-888", "garden@eco.com",
-                    Map.of(
-                            "Monday", "08:00-22:00",
-                            "Tuesday", "08:00-22:00",
-                            "Wednesday", "08:00-22:00",
-                            "Thursday", "08:00-22:00",
-                            "Friday", "08:00-22:00",
-                            "Saturday", "10:00-23:00",
-                            "Sunday", "Closed"
-                    ),
-                    true, 20, 4.2, 12, 1, "Zdravi obroci i veganske opcije"),
-
-            new Restoran(9L, "Burger Bomba", "Heinzlova 7", "098-666-999", "burger@bomba.com",
-                    Map.of(
-                            "Monday", "10:00-23:00",
-                            "Tuesday", "10:00-23:00",
-                            "Wednesday", "10:00-23:00",
-                            "Thursday", "10:00-23:00",
-                            "Friday", "10:00-23:00",
-                            "Saturday", "10:00-23:00",
-                            "Sunday", "10:00-23:00"
-                    ),
-                    true, 35, 4.6, 9, 0, "Sočni burgeri s domaćim pecivima")
-    ));
+    private static List<Restoran> restorani = new ArrayList<>();
 
 
     public MockRestoranRepository(){
@@ -86,7 +26,7 @@ public class MockRestoranRepository implements RestoranRepository{
     @Override
     public Optional<Restoran> findRestoranByID(Long id) {
         return restorani.stream()
-                .filter(r -> r.getID().equals(id)).findFirst();
+                .filter(r -> r.getId().equals(id)).findFirst();
     }
     @Override
     public Optional<Restoran> findRestoranByIme(String ime){
@@ -95,15 +35,15 @@ public class MockRestoranRepository implements RestoranRepository{
     }
     @Override
     public Optional<Restoran> spremiRestoran(Restoran restoran) {
-        if(!Optional.ofNullable(restoran.getID()).isPresent()) {    //ako restoran nema ID, generiraj novi ID i spremi
+        if(!Optional.ofNullable(restoran.getId()).isPresent()) {    //ako restoran nema ID, generiraj novi ID i spremi
             Long generatedId = generarateNewID();
-            restoran.setID(generatedId);
+            restoran.setId(generatedId);
             restorani.add(restoran);
             return Optional.of(restoran);
         }
         else{   //ako restoran ima ID
             Optional<Restoran> postojeciRestoran = restorani.stream()
-                    .filter(r -> r.getID().equals(restoran.getID())).findFirst();
+                    .filter(r -> r.getId().equals(restoran.getId())).findFirst();
 
             if(postojeciRestoran.isEmpty()){    //ako restoran s tim ID-em ne postoji, spremi
                 restorani.add(restoran);
@@ -131,17 +71,22 @@ public class MockRestoranRepository implements RestoranRepository{
     @Override
     public void izbrisiRestoran(Long id) {
         restorani = restorani.stream()
-                .filter(r -> !r.getID().equals(id))
+                .filter(r -> !r.getId().equals(id))
                 .toList();
+    }
+
+    @Override
+    public Optional<Restoran> azurirajRestoran(Long id, Restoran restoran) {
+        return Optional.empty();
     }
 
     private Long generarateNewID() {
         Optional<Restoran> lastPrimaryKeyValueOptional = restorani.stream()
-                .max((fi1, fi2) -> fi1.getID().compareTo(fi2.getID()));
+                .max((fi1, fi2) -> fi1.getId().compareTo(fi2.getId()));
 
         if(lastPrimaryKeyValueOptional.isPresent()) {
             Restoran foodItem = lastPrimaryKeyValueOptional.get();
-            return foodItem.getID() + 1;
+            return foodItem.getId() + 1;
         }
         else {
             return 1L;

@@ -17,4 +17,6 @@ public interface RestoranService {
     List<RestoranDTO> findNajbolji(Double ocjena);
     Optional<RestoranDTO> spremiRestoran(RestoranCommand restoranCommand);
     void izbrisiRestoran(Long ID);
+    List<RestoranDTO> findTrenutnoOtvoreniRestorani();
+    Optional<RestoranDTO> azurirajRestoran(Long id, RestoranCommand restoranCommand);
 }
