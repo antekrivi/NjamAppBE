@@ -8,4 +8,5 @@ public interface RecenzijaService {
     List<RecenzijaDTO> findAll();
     List<RecenzijaDTO> findByRestoranID(Long restoranId);
 
+    void deleteByRestoranId(Long restoranId);
 }

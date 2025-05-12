@@ -19,4 +19,7 @@ public interface RestoranService {
     void izbrisiRestoran(Long ID);
     List<RestoranDTO> findTrenutnoOtvoreniRestorani();
     Optional<RestoranDTO> azurirajRestoran(Long id, RestoranCommand restoranCommand);
+
+    Optional<RestoranDTO> najboljiRestoranZadnjih7Dana();
+    Optional<RestoranDTO> najboljiRestoranZadnjih30Dana();
 }

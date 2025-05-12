@@ -91,5 +91,14 @@ public class RestoranController {
     public List<RestoranDTO> getNajbolji(@RequestParam final Double ocjena) {
         return restoranServiceImpl.findNajbolji(ocjena);
     }
+
+    @GetMapping("/najboljiZadnjih7Dana")
+    public Optional<RestoranDTO> getNajboljiZadnjih7Dana() {
+        return restoranServiceImpl.najboljiRestoranZadnjih7Dana();
+    }
+    @GetMapping("/najboljiZadnjih30Dana")
+    public Optional<RestoranDTO> getNajboljiZadnjih30Dana() {
+        return restoranServiceImpl.najboljiRestoranZadnjih30Dana();
+    }
 }
 

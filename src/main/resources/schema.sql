@@ -20,5 +20,6 @@ CREATE TABLE IF NOT EXISTS recenzija(
     tekst VARCHAR(500) NOT NULL,
     ocjena INT NOT NULL,
     restoran_id INT NOT NULL,
+    datum_objave TIMESTAMP,
     FOREIGN KEY (restoran_id) REFERENCES restoran(id)
 )

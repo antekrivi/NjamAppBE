@@ -5,18 +5,23 @@ import hr.tvz.krivacic.njamapp.dto.RestoranDTO;
 import hr.tvz.krivacic.njamapp.model.RestoranCommand;
 import hr.tvz.krivacic.njamapp.repository.JdbcRestoranRepository;
 import hr.tvz.krivacic.njamapp.repository.MockRestoranRepository;
+import hr.tvz.krivacic.njamapp.repository.RecenzijaRepository;
+import hr.tvz.krivacic.njamapp.repository.RestoranJpaRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class RestoranServiceImpl implements RestoranService {
-    private final JdbcRestoranRepository restoranRepository;
+    private final RestoranJpaRepository restoranRepository;
+    private final RecenzijaRepository recenzijaRepository;
 
-    public RestoranServiceImpl(JdbcRestoranRepository jdbcRestoranRepository) {
+    public RestoranServiceImpl(RestoranJpaRepository jdbcRestoranRepository, RecenzijaRepository recenzijaService) {
         this.restoranRepository = jdbcRestoranRepository;
+        this.recenzijaRepository = recenzijaService;
     }
     @Override
     public List<RestoranDTO> findAll() {
@@ -27,9 +32,8 @@ public class RestoranServiceImpl implements RestoranService {
     }
     @Override
     public List<RestoranDTO> findMichelinoveRestorane() {
-        return restoranRepository.findMichelinoveRestorane()
+        return restoranRepository.findByMichelinZvijezdiceGreaterThan(0)
                 .stream()
-                .filter(restoran -> restoran.getMichelinZvijezdice() > 0)
                 .map(this::mapRestoranToRestoranDTO)
                 .collect(Collectors.toList());
     }
@@ -38,17 +42,17 @@ public class RestoranServiceImpl implements RestoranService {
     }
     @Override
     public RestoranDTO findRestoranByID(Long id) {
-        return restoranRepository.findRestoranByID(id)
+        return restoranRepository.findById(id)
                 .map(this::mapRestoranToRestoranDTO)
                 .orElse(null);
     }
     @Override
     public Restoran findFullRestoranByID(Long id) {
-        return restoranRepository.findRestoranByID(id).get();
+        return restoranRepository.findById(id).get();
     }
     @Override
     public RestoranDTO findRestoranByIme(String ime) {
-        return restoranRepository.findRestoranByIme(ime)
+        return restoranRepository.findByImeRestorana(ime)
                 .map(this::mapRestoranToRestoranDTO)
                 .orElse(null);
     }
@@ -87,12 +91,14 @@ public class RestoranServiceImpl implements RestoranService {
                 restoranCommand.getBrojStolova(),
                 restoranCommand.getGodinaOsnivanja()
         );
-        return restoranRepository.spremiRestoran(noviRestoran)
+        Restoran spremljeniRestoran = restoranRepository.save(noviRestoran);
+        return Optional.of(spremljeniRestoran)
                 .map(this::mapRestoranToRestoranDTO);
     }
     @Override
     public void izbrisiRestoran(Long ID){
-        restoranRepository.izbrisiRestoran(ID);
+        recenzijaRepository.deleteByRestoranId(ID);
+        restoranRepository.deleteById(ID);
     }
 
     @Override
@@ -122,7 +128,24 @@ public class RestoranServiceImpl implements RestoranService {
                 restoranCommand.getBrojStolova(),
                 restoranCommand.getGodinaOsnivanja()
         );
-        return restoranRepository.azurirajRestoran(id, restoran)
+        Restoran spremljeniRestoran = restoranRepository.save(restoran);
+        return Optional.of(spremljeniRestoran)
                 .map(this::mapRestoranToRestoranDTO);
+    }
+
+    @Override
+    public Optional<RestoranDTO> najboljiRestoranZadnjih7Dana() {
+        return recenzijaRepository.findTopRestoranByAverageOcjenaSince(LocalDateTime.now().minusDays(7))
+                .stream()
+                .map(this::mapRestoranToRestoranDTO)
+                .findFirst();
+    }
+
+    @Override
+    public Optional<RestoranDTO> najboljiRestoranZadnjih30Dana() {
+        return recenzijaRepository.findTopRestoranByAverageOcjenaSince(LocalDateTime.now().minusDays(30))
+                .stream()
+                .map(this::mapRestoranToRestoranDTO)
+                .findFirst();
     }
 }

@@ -21,15 +21,14 @@ INSERT INTO restoran (
       (9, 'Burger Bomba', 'Heinzlova 7', '098-666-999', 'burger@bomba.com',
        '{"Monday":"10:00-23:00","Tuesday":"10:00-23:00","Wednesday":"10:00-23:00","Thursday":"10:00-23:00","Friday":"10:00-23:00","Saturday":"10:00-23:00","Sunday":"10:00-23:00"}',
        FALSE, 35, 4.6, 9, 0, 'Sočni burgeri s domaćim pecivima', 6, 2019);
-INSERT INTO recenzija (
-    id, naslov, tekst, ocjena, restoran_id)
+
+INSERT INTO recenzija (id, naslov, tekst, ocjena, restoran_id, datum_objave)
 VALUES
-      (1, 'Odlična hrana', 'Hrana je bila savršena, preporučujem!', 5, 1),
-      (2, 'Dobra usluga', 'Osoblje je bilo ljubazno i brzo.', 4, 1),
-      (3, 'Prosječno', 'Hrana je bila dobra, ali ništa posebno.', 3, 4),
-      (4, 'Loša usluga', 'Čekali smo predugo na narudžbu.', 2, 4),
-      (5, 'Fantastična pizza', 'Najbolja pizza koju sam ikad probao!', 5, 7),
-      (6, 'Zelena oaza', 'Savršeno mjesto za vegane.', 4, 8),
-      (7, 'Burgeri su odlični', 'Sočni i ukusni burgeri.', 5, 9),
-      (8, 'Preporučujem svima', 'Savršeno mjesto za večeru.', 5, 1
-)
+    (1, 'Odlična hrana', 'Hrana je bila savršena, preporučujem!', 5, 1, '2025-05-01T12:00:00'),
+    (2, 'Dobra usluga', 'Osoblje je bilo ljubazno i brzo.', 4, 1, '2025-05-03T15:30:00'),
+    (3, 'Prosječno', 'Hrana je bila dobra, ali ništa posebno.', 3, 4, '2025-04-28T18:00:00'),
+    (4, 'Loša usluga', 'Čekali smo predugo na narudžbu.', 2, 4, '2025-04-20T19:15:00'),
+    (5, 'Fantastična pizza', 'Najbolja pizza koju sam ikad probao!', 5, 7, '2025-05-05T13:45:00'),
+    (6, 'Zelena oaza', 'Savršeno mjesto za vegane.', 4, 8, '2025-05-06T11:00:00'),
+    (7, 'Burgeri su odlični', 'Sočni i ukusni burgeri.', 5, 9, '2025-05-10T17:00:00'),
+    (8, 'Preporučujem svima', 'Savršeno mjesto za večeru.', 5, 1, '2025-05-11T20:00:00');

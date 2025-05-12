@@ -24,4 +24,5 @@ public class RecenzijaController {
     private List<RecenzijaDTO> getRecenzijeByRestoranId(@RequestParam Long restoranId) {
         return recenzijaService.findByRestoranID(restoranId);
     }
+
 }

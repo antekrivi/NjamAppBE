@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -21,4 +24,11 @@ public class Recenzija {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "restoran_id", referencedColumnName = "id")
     private Restoran restoran;
+    private LocalDateTime datumObjave;
+
+    @PrePersist
+    protected void onCreate() {
+        this.datumObjave = LocalDateTime.now();
+    }
+
 }

@@ -42,4 +42,8 @@ public class RecenzijaServiceImpl implements RecenzijaService{
                 recenzija.getRestoran()
         );
     }
+    @Override
+    public void deleteByRestoranId(Long restoranId) {
+        recenzijaRepository.deleteByRestoranId(restoranId);
+    }
 }
