@@ -1,5 +1,6 @@
 package hr.tvz.krivacic.njamapp.model;
 
+import hr.tvz.krivacic.njamapp.security.domain.UserInfo;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -15,13 +16,13 @@ import java.util.Date;
 @Entity
 public class Recenzija {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String naslov;
     private String tekst;
     private Integer ocjena;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "restoran_id", referencedColumnName = "id")
     private Restoran restoran;
     private LocalDateTime datumObjave;
@@ -30,5 +31,7 @@ public class Recenzija {
     protected void onCreate() {
         this.datumObjave = LocalDateTime.now();
     }
-
+    @ManyToOne
+    @JoinColumn(name = "korisnik_id", nullable = false)
+    private UserInfo korisnik;
 }

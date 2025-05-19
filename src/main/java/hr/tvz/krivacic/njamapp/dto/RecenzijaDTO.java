@@ -11,4 +11,5 @@ public class RecenzijaDTO {
     private final String tekst;
     private final int ocjena;
     private final Restoran restoranId;
+    private final String korisnickoIme;
 }

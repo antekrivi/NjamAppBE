@@ -10,7 +10,7 @@ import java.util.Map;
 @Entity
 public class Restoran {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String imeRestorana;
     private String adresa;
