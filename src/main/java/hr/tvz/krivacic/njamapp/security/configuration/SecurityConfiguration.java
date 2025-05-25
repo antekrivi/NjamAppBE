@@ -35,7 +35,8 @@ public class SecurityConfiguration {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                                .requestMatchers("/auth/api/v1/login", "/auth/api/v1/refreshToken", "api/user/me").permitAll()
+                                .requestMatchers("/auth/login", "/auth/refreshToken",
+                                        "api/user/me", "auth/logout", "/restoran/**").permitAll()
                                 .requestMatchers("/bugtracking/**").authenticated()
                         .anyRequest().authenticated())
                 .authenticationProvider(authenticationProvider())

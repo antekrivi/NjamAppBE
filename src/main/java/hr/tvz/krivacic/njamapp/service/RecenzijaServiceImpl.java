@@ -51,7 +51,6 @@ public class RecenzijaServiceImpl implements RecenzijaService{
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
         UserInfo user = userRepository.findByUsername(username);
-
         Restoran restoran = restoranService.findFullRestoranByID(recenzijaCommand.getRestoranId());
 
         Recenzija recenzija = new Recenzija();

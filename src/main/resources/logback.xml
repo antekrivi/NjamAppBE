@@ -16,13 +16,19 @@
     </appender>
 
     <!-- Root logger -->
-    <root level="debbug">
+    <root level="info">
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="FILE" />
     </root>
 
+    <!-- Specifični logger za hr.tvz -->
+    <logger name="hr.tvz" level="debug" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </logger>
+
     <!-- Čogging level za Spring (opcionalno) -->
-    <logger name="org.springframework" level="debug"/>
-    <logger name="com.example" level="debug"/> <!-- Prilagodi prema svom paketu -->
+    <logger name="org.springframework" level="warn"/>
+    <logger name="com.example" level="warn"/> <!-- Prilagodi prema svom paketu -->
 
 </configuration>

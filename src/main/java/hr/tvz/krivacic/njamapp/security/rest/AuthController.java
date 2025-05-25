@@ -8,6 +8,8 @@ import hr.tvz.krivacic.njamapp.security.dto.RefreshTokenRequestDTO;
 import hr.tvz.krivacic.njamapp.security.service.JwtService;
 import hr.tvz.krivacic.njamapp.security.service.RefreshTokenService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,7 +28,7 @@ public class AuthController {
 
     private RefreshTokenService refreshTokenService;
 
-    @PostMapping("/api/v1/login")
+    @PostMapping("/login")
     public JwtResponseDTO authenticateAndGetToken(@RequestBody AuthRequestDTO authRequestDTO){
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequestDTO.getUsername(), authRequestDTO.getPassword()));
         if(authentication.isAuthenticated()){
@@ -40,7 +42,7 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/api/v1/refreshToken")
+    @PostMapping("/refreshToken")
     public JwtResponseDTO refreshToken(@RequestBody RefreshTokenRequestDTO refreshTokenRequestDTO){
         return refreshTokenService.findByToken(refreshTokenRequestDTO.getToken())
                 .map(refreshTokenService::verifyExpiration)
@@ -53,9 +55,12 @@ public class AuthController {
                 }).orElseThrow(() ->new RuntimeException("Refresh Token is not in DB..!!"));
     }
 
-    @PostMapping("/api/v1/logout")
-    public void logout() {
-        System.out.println("Logout...");
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(@RequestBody RefreshTokenRequestDTO refreshTokenRequestDTO){
+        //refreshTokenService.deleteByToken(request.getToken());
+        refreshTokenService.findByToken(refreshTokenRequestDTO.getToken())
+                .ifPresent(refreshTokenService::delete);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 }

@@ -47,3 +47,10 @@ CREATE TABLE IF NOT EXISTS recenzija (
      FOREIGN KEY (restoran_id) REFERENCES restoran(id),
      FOREIGN KEY (korisnik_id) REFERENCES korisnik(id)
 );
+CREATE TABLE IF NOT EXISTS refresh_token (
+      id BIGINT PRIMARY KEY AUTO_INCREMENT,
+      token VARCHAR(255) NOT NULL,
+      expiry_date TIMESTAMP NOT NULL,
+      user_id BIGINT NOT NULL,
+      FOREIGN KEY (user_id) REFERENCES korisnik(id) ON DELETE CASCADE
+);

@@ -2,8 +2,11 @@ package hr.tvz.krivacic.njamapp.security.service;
 
 
 import hr.tvz.krivacic.njamapp.security.domain.RefreshToken;
+import hr.tvz.krivacic.njamapp.security.domain.UserInfo;
+import hr.tvz.krivacic.njamapp.security.dto.RefreshTokenRequestDTO;
 import hr.tvz.krivacic.njamapp.security.repository.RefreshTokenRepository;
 import hr.tvz.krivacic.njamapp.security.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +23,11 @@ public class RefreshTokenService {
     @Autowired
     UserRepository userRepository;
 
+    @Transactional
     public RefreshToken createRefreshToken(String username){
+        UserInfo user = userRepository.findByUsername(username);
+        refreshTokenRepository.deleteByUserInfo(user);
+
         RefreshToken refreshToken = RefreshToken.builder()
                 .userInfo(userRepository.findByUsername(username))
                 .token(UUID.randomUUID().toString())
@@ -28,8 +35,6 @@ public class RefreshTokenService {
                 .build();
         return refreshTokenRepository.save(refreshToken);
     }
-
-
 
     public Optional<RefreshToken> findByToken(String token){
         return refreshTokenRepository.findByToken(token);
@@ -42,5 +47,16 @@ public class RefreshTokenService {
         }
         return token;
     }
-
+//    @Transactional
+//    public void deleteByToken(String token) {
+//        refreshTokenRepository.deleteByToken(token);
+//    }
+//    @Transactional
+//    public void deleteByUsername(String username) {
+//        UserInfo user = userRepository.findByUsername(username);
+//        refreshTokenRepository.deleteByUserInfo(user);
+//    }
+    public void delete(RefreshToken token){
+        refreshTokenRepository.delete(token);
+    }
 }
