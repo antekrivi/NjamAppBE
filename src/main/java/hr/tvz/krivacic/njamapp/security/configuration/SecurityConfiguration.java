@@ -36,7 +36,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                                 .requestMatchers("/auth/login", "/auth/refreshToken",
-                                        "api/user/me", "auth/logout", "/restoran/**").permitAll()
+                                        "api/user/me", "auth/logout", "/restoran/**", "recenzija/**").permitAll()
                                 .requestMatchers("/bugtracking/**").authenticated()
                         .anyRequest().authenticated())
                 .authenticationProvider(authenticationProvider())
