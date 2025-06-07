@@ -47,15 +47,6 @@ public class RefreshTokenService {
         }
         return token;
     }
-//    @Transactional
-//    public void deleteByToken(String token) {
-//        refreshTokenRepository.deleteByToken(token);
-//    }
-//    @Transactional
-//    public void deleteByUsername(String username) {
-//        UserInfo user = userRepository.findByUsername(username);
-//        refreshTokenRepository.deleteByUserInfo(user);
-//    }
     public void delete(RefreshToken token){
         refreshTokenRepository.delete(token);
     }

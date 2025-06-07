@@ -17,7 +17,7 @@ public class RestoranDTO {
     private final boolean trenutnoOtvoreno;
     private final Integer postotakOpterecenosti;
     private final Integer michelinZvijezdice;
-    private final Map<String, String> radnoVrijeme;
+    private final String radnoVrijeme;
     private final Integer brojStolova;
     private final Integer godinaOsnivanja;
 

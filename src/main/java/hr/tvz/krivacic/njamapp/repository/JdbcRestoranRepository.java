@@ -130,7 +130,7 @@ public class JdbcRestoranRepository implements RestoranRepository{
                 rs.getString("adresa"),
                 rs.getString("broj_telefona"),
                 rs.getString("email"),
-                radnoVrijemeMap,
+                rs.getString("radno_vrijeme"),
                 rs.getBoolean("trenutno_otvoreno"),
                 rs.getInt("pros_vrijeme_dostave"),
                 rs.getDouble("pros_ocjena_kupca"),

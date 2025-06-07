@@ -16,11 +16,7 @@ public class Restoran {
     private String adresa;
     private String brojTelefona;
     private String email;
-    @ElementCollection
-    @CollectionTable(name = "radno_vrijeme", joinColumns = @JoinColumn(name = "restoran_id"))
-    @MapKeyColumn(name = "dan")
-    @Column(name = "vrijeme")
-    private Map<String, String> radnoVrijeme;
+    private String radnoVrijeme;
     private Boolean trenutnoOtvoreno;
     private Integer prosVrijemeDostave;
     private Double prosOcjenaKupca;

@@ -81,7 +81,7 @@ public class RestoranServiceImpl implements RestoranService {
                 restoranCommand.getAdresa(),
                 restoranCommand.getBrojTelefona(),
                 restoranCommand.getEmail(),
-                restoranCommand.getRadnoVrijeme(),
+                restoranCommand.getRadnoVrijeme().toString(),
                 restoranCommand.getTrenutnoOtvoreno(),
                 restoranCommand.getProsVrijemeDostave(),
                 restoranCommand.getProsOcjenaKupca(),

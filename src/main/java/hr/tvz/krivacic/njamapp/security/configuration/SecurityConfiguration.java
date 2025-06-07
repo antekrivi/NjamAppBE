@@ -35,9 +35,8 @@ public class SecurityConfiguration {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                                .requestMatchers("/auth/login", "/auth/refreshToken",
-                                        "api/user/me", "auth/logout", "/restoran/**", "recenzija/**").permitAll()
-                                .requestMatchers("/bugtracking/**").authenticated()
+                        .requestMatchers("/auth/login", "/auth/refreshToken", "/auth/logout").permitAll()
+                        .requestMatchers("/restoran/**", "recenzija/**").permitAll()
                         .anyRequest().authenticated())
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

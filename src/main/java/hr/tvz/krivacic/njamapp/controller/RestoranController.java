@@ -42,7 +42,9 @@ public class RestoranController {
     }
 
     @GetMapping("/full")
-    public Restoran getFullRestoran(@RequestParam final Long id) {return restoranServiceImpl.findFullRestoranByID(id);}
+    public Restoran getFullRestoran(@RequestParam final Long id) {
+        return restoranServiceImpl.findFullRestoranByID(id);
+    }
 
     @GetMapping(params = "ime")
     public RestoranDTO getRestoranByIme(@RequestParam final String ime){
