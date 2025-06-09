@@ -1,14 +1,13 @@
 package hr.tvz.krivacic.njamapp.service;
 
+import hr.tvz.krivacic.njamapp.model.NajpovoljnijiRestoran;
 import hr.tvz.krivacic.njamapp.model.Restoran;
 import hr.tvz.krivacic.njamapp.dto.RestoranDTO;
 import hr.tvz.krivacic.njamapp.model.RestoranCommand;
-import hr.tvz.krivacic.njamapp.repository.JdbcRestoranRepository;
-import hr.tvz.krivacic.njamapp.repository.MockRestoranRepository;
-import hr.tvz.krivacic.njamapp.repository.RecenzijaRepository;
-import hr.tvz.krivacic.njamapp.repository.RestoranJpaRepository;
+import hr.tvz.krivacic.njamapp.repository.*;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -18,10 +17,13 @@ import java.util.stream.Collectors;
 public class RestoranServiceImpl implements RestoranService {
     private final RestoranJpaRepository restoranRepository;
     private final RecenzijaRepository recenzijaRepository;
+    private final NajpovoljnijiRestoranRepository najpovoljnijiRestoranRepository;
 
-    public RestoranServiceImpl(RestoranJpaRepository jdbcRestoranRepository, RecenzijaRepository recenzijaService) {
+    public RestoranServiceImpl(RestoranJpaRepository jdbcRestoranRepository, RecenzijaRepository recenzijaService,
+                               NajpovoljnijiRestoranRepository najpovoljnijiRestoranRepository) {
         this.restoranRepository = jdbcRestoranRepository;
         this.recenzijaRepository = recenzijaService;
+        this.najpovoljnijiRestoranRepository = najpovoljnijiRestoranRepository;
     }
     @Override
     public List<RestoranDTO> findAll() {
@@ -147,5 +149,20 @@ public class RestoranServiceImpl implements RestoranService {
                 .stream()
                 .map(this::mapRestoranToRestoranDTO)
                 .findFirst();
+    }
+
+    public void spremiNajpovoljnijiRestoran(Long restoranId) {
+        Restoran restoran = restoranRepository.findById(restoranId).orElseThrow();
+        NajpovoljnijiRestoran novi = new NajpovoljnijiRestoran();
+        novi.setRestoran(restoran);
+        novi.setDatum(LocalDate.now());
+        najpovoljnijiRestoranRepository.save(novi);
+    }
+
+    public List<RestoranDTO> findNajpovoljniji() {
+        return najpovoljnijiRestoranRepository.findTopByDatum(LocalDate.now())
+                .stream()
+                .map(this::mapRestoranToRestoranDTO)
+                .collect(Collectors.toList());
     }
 }

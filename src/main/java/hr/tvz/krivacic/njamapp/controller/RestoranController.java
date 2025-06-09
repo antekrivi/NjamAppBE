@@ -3,6 +3,7 @@ package hr.tvz.krivacic.njamapp.controller;
 import hr.tvz.krivacic.njamapp.dto.RestoranDTO;
 import hr.tvz.krivacic.njamapp.model.Restoran;
 import hr.tvz.krivacic.njamapp.model.RestoranCommand;
+import hr.tvz.krivacic.njamapp.repository.NajpovoljnijiRestoranRepository;
 import hr.tvz.krivacic.njamapp.service.RestoranService;
 import hr.tvz.krivacic.njamapp.service.RestoranServiceImpl;
 import jakarta.validation.Valid;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.Option;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +25,8 @@ public class RestoranController {
     private static final Logger logger = LoggerFactory.getLogger(RestoranController.class);
     private final RestoranServiceImpl restoranServiceImpl;
 
-    public RestoranController(RestoranServiceImpl restoranServiceImpl) {
+    public RestoranController(RestoranServiceImpl restoranServiceImpl
+                               ) {
         this.restoranServiceImpl = restoranServiceImpl;
     }
 
@@ -101,6 +104,11 @@ public class RestoranController {
     @GetMapping("/najboljiZadnjih30Dana")
     public Optional<RestoranDTO> getNajboljiZadnjih30Dana() {
         return restoranServiceImpl.najboljiRestoranZadnjih30Dana();
+    }
+
+    @GetMapping("/najpovoljniji")
+    public List<RestoranDTO> getNajpovoljnijiRestorani() {
+        return restoranServiceImpl.findNajpovoljniji();
     }
 }
 

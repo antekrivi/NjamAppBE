@@ -54,3 +54,9 @@ CREATE TABLE IF NOT EXISTS refresh_token (
       user_id BIGINT NOT NULL,
       FOREIGN KEY (user_id) REFERENCES korisnik(id) ON DELETE CASCADE
 );
+CREATE TABLE IF NOT EXISTS  najpovoljniji_restorani(
+    id IDENTITY PRIMARY KEY,
+    restoran_id INT NOT NULL,
+    datum DATE NOT NULL,
+    FOREIGN KEY (restoran_id) REFERENCES restoran(id) ON DELETE CASCADE
+);
